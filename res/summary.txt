@@ -1,0 +1,49 @@
+Summary
+
+
+
+Source Database
+
+
+mysql1:
+    host: 127.0.0.1
+    post: 3306
+    user: root
+    sql-mode: XXXXX;XXXXX;
+
+mysql2:
+    host: 127.0.0.1
+    post: 3307
+    user: root
+    sql-mode: XXXXX;XXXXX;
+
+Target Database:
+
+tidb3:
+    host: 127.0.0.1
+    post: 3307
+    user: root
+    snapshot: 400214013280923
+    sql-mode: XXXXX;XXXXX;
+
+
+Comparison results
+
+
+The table structure and data in the following table are equivalent:
+
+    schema0.table0;
+    schema1.table1;
+    schema2.table2;
+    schema4.table4;
+
+The following tables contains inconsistent data:
+
++----------------+--------------------+----------------+
+| Table          | Structure equality | Data diff rows |
++----------------+--------------------+----------------+
+| schema3.table3 | true               | +6/-2          |
++----------------+--------------------+----------------+
+
+Time Cost: 50s 
+Average speed: 34MB/s

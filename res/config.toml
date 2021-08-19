@@ -1,0 +1,51 @@
+[data-source.mysql1]
+host = "127.0.0.1"
+port = 3306
+user = "root"
+password = "123456"
+sql-mode = ""
+
+[data-source.mysql2]
+host = "127.0.0.1"
+port = 3307
+user = "root"
+password = "123456"
+sql-mode = ""
+
+[data-source.tidb3]
+host = "127.0.0.1"
+port = 4000
+user = "root"
+password = "123456"
+sql-mode = ""
+
+## 分库分表场景，配置库表分片映射规则
+# [routes.rule1]
+# source = ["test_*.t_*"]   # 匹配源数据库表名
+# target = "test.t"         # 目标库表名
+
+
+# [routes.rule2]
+# source = ["test2_*.t2_*"]   # 匹配源数据库表名
+# target = "test2.t2"         # 目标库表名
+
+
+[table-config.config1]
+table = "schema1.table"
+range = "age > 10 AND age < 20"
+index = "pk1" # 以某个 index 进行分片
+ignore-columns = ["col1","col2"]
+
+[task]
+output-dir = "./output"
+
+sources = ["mysql1"]
+
+## 分库分表场景配置多个上游数据源
+# sources = ["mysql1","mysql2","mysql3"]
+## 分库分表场景指定映射规则
+# source-routes = ["rule1", "rule2"]
+	
+target = "tidb1"
+check-tables = ["schema*.table*", "!c.*", "test2.t2"]
+configs= ["config1"]
